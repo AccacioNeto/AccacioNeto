@@ -1,4 +1,3 @@
-~Script de automatização de relatório na tela ZLES002 (Consulta de CTEs Mix especifico)~
 If Not IsObject(application) Then
    Set SapGuiAuto  = GetObject("SAPGUI")
    Set application = SapGuiAuto.GetScriptingEngine
