@@ -1,0 +1,34 @@
+~Script de automatização de relatório na tela ZLES002 (Consulta de CTEs Mix especifico)~
+If Not IsObject(application) Then
+   Set SapGuiAuto  = GetObject("SAPGUI")
+   Set application = SapGuiAuto.GetScriptingEngine
+End If
+If Not IsObject(connection) Then
+   Set connection = application.Children(0)
+End If
+If Not IsObject(session) Then
+   Set session    = connection.Children(0)
+End If
+If IsObject(WScript) Then
+   WScript.ConnectObject session,     "on"
+   WScript.ConnectObject application, "on"
+End If
+session.findById("wnd[0]").maximize
+session.findById("wnd[0]/tbar[0]/okcd").text = "zles002"
+session.findById("wnd[0]").sendVKey 0
+session.findById("wnd[0]/tbar[1]/btn[17]").press
+session.findById("wnd[1]/usr/cntlALV_CONTAINER_1/shellcont/shell").currentCellColumn = "TEXT"
+session.findById("wnd[1]/usr/cntlALV_CONTAINER_1/shellcont/shell").selectedRows = "0"
+session.findById("wnd[1]/usr/cntlALV_CONTAINER_1/shellcont/shell").doubleClickCurrentCell
+session.findById("wnd[0]/tbar[1]/btn[8]").press
+session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").setCurrentCell -1,"DESC_ETAPA"
+session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").selectColumn "DESC_ETAPA"
+session.findById("wnd[0]/tbar[1]/btn[40]").press
+session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").setCurrentCell 5,"DESC_ETAPA"
+session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").contextMenu
+session.findById("wnd[0]/usr/cntlGRID1/shellcont/shell").selectContextMenuItem "&XXL"
+session.findById("wnd[1]/tbar[0]/btn[0]").press
+session.findById("wnd[1]/usr/ctxtDY_PATH").text = "C:\Users\accacio.neto\Desktop\"
+session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = "erro insumos 10.04.XLSX"
+session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 18
+session.findById("wnd[1]/tbar[0]/btn[0]").press
